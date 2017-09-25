@@ -1,8 +1,8 @@
-# Getting started with the Keras Sequential model
+# 開始學習 Keras 循序式模型
 
-The `Sequential` model is a linear stack of layers.
+`循序式` 模型是數個層的線性堆疊。
 
-You can create a `Sequential` model by passing a list of layer instances to the constructor:
+你可以在建構子中傳入層的串列來建立 `循序式` 的模型：
 
 ```python
 from keras.models import Sequential
@@ -16,7 +16,7 @@ model = Sequential([
 ])
 ```
 
-You can also simply add layers via the `.add()` method:
+你也可以使用 `.add()` 方法來加入一層：
 
 ```python
 model = Sequential()
@@ -26,15 +26,16 @@ model.add(Activation('relu'))
 
 ----
 
-## Specifying the input shape
+## 指定輸入的 shape
 
-The model needs to know what input shape it should expect. For this reason, the first layer in a `Sequential` model (and only the first, because following layers can do automatic shape inference) needs to receive information about its input shape. There are several possible ways to do this:
+模型本身需要知道輸入的形狀。因此，`Sequential` 模型的第一層(也只有第一層需要，因為後面的層可以自動得到輸入的相關資訊)需要接收關於輸入的資訊。有以下幾種方法可以做到這件事：
 
-- Pass an `input_shape` argument to the first layer. This is a shape tuple (a tuple of integers or `None` entries, where `None` indicates that any positive integer may be expected). In `input_shape`, the batch dimension is not included.
-- Some 2D layers, such as `Dense`, support the specification of their input shape via the argument `input_dim`, and some 3D temporal layers support the arguments `input_dim` and `input_length`.
-- If you ever need to specify a fixed batch size for your inputs (this is useful for stateful recurrent networks), you can pass a `batch_size` argument to a layer. If you pass both `batch_size=32` and `input_shape=(6, 8)` to a layer, it will then expect every batch of inputs to have the batch shape `(32, 6, 8)`.
+- 在第一個輸入層中指定 `input_shape` 參數，它的資料型態是一個 shape 的 tuple(可以是一個整數的 tuple，也可以是 `None`，如果是 `None`，代表這個值可能是任何正整數)，而 batch 的維度不應該被包含在此。
 
-As such, the following snippets are strictly equivalent:
+- 某些二維的層，像是 `Dense`，支援使用 `input_dim` 來指定輸入層的 shape，而某些三維的時間層，則是支援使用 `input_dim` 和 `input_length` 來指定輸入的 shape。
+- 如果你需要在輸入時指定一個固定的 batch 大小(通常用在 stateful RNN 網路上)，你可以傳入 `batch_size` 的參數到指定的層中。如果你同時宣告 `batch_size=32` 和 `input_shape=(6, 8)` 到某層中，則它預期每個 batch 的輸入 share 就是 `(32, 6, 8)`。
+
+因此，下面的幾種宣告方式應該是等價的：
 ```python
 model = Sequential()
 model.add(Dense(32, input_shape=(784,)))
