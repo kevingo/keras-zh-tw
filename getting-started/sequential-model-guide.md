@@ -83,13 +83,12 @@ model.compile(optimizer='rmsprop',
 
 ----
 
-## Training
+## 訓練
 
-Keras models are trained on Numpy arrays of input data and labels. For training a model, you will typically use the `fit` function. [Read its documentation here](/models/sequential).
+Keras 的模型使用 Numpy 陣列型別作為資料的輸入和其類別。訓練一個模型通常你會使用 `fit` 方法。[該函數的用法可以參考這份文件](/models/sequential)。
 
 ```python
-# For a single-input model with 2 classes (binary classification):
-
+# 對一個單一輸入、加上一個兩個類別的模型(二元分類問題)：
 model = Sequential()
 model.add(Dense(32, activation='relu', input_dim=100))
 model.add(Dense(1, activation='sigmoid'))
@@ -97,17 +96,17 @@ model.compile(optimizer='rmsprop',
               loss='binary_crossentropy',
               metrics=['accuracy'])
 
-# Generate dummy data
+# 產生隨機資料
 import numpy as np
 data = np.random.random((1000, 100))
 labels = np.random.randint(2, size=(1000, 1))
 
-# Train the model, iterating on the data in batches of 32 samples
+# 訓練一個模型，使用 32 個訓練資料當成一個 batch
 model.fit(data, labels, epochs=10, batch_size=32)
 ```
 
 ```python
-# For a single-input model with 10 classes (categorical classification):
+# 訓練一個單一輸入，有 10 個類別的模型 (類別型的分類問題):
 
 model = Sequential()
 model.add(Dense(32, activation='relu', input_dim=100))
@@ -116,15 +115,15 @@ model.compile(optimizer='rmsprop',
               loss='categorical_crossentropy',
               metrics=['accuracy'])
 
-# Generate dummy data
+# 產生隨機資料
 import numpy as np
 data = np.random.random((1000, 100))
 labels = np.random.randint(10, size=(1000, 1))
 
-# Convert labels to categorical one-hot encoding
+# 將類別資料透過 one-hot encoding 進行轉換
 one_hot_labels = keras.utils.to_categorical(labels, num_classes=10)
 
-# Train the model, iterating on the data in batches of 32 samples
+# 訓練一個模型，使用 32 個訓練資料當成一個 batch
 model.fit(data, one_hot_labels, epochs=10, batch_size=32)
 ```
 
