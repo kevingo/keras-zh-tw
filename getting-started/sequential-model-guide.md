@@ -47,30 +47,30 @@ model.add(Dense(32, input_dim=784))
 
 ----
 
-## Compilation
+## 編譯
 
-Before training a model, you need to configure the learning process, which is done via the `compile` method. It receives three arguments:
+在訓練模型之前，你需要設定學習的過程，你可以透過 `compile` 方法來達成。`compile` 會接收三個參數：
 
-- An optimizer. This could be the string identifier of an existing optimizer (such as `rmsprop` or `adagrad`), or an instance of the `Optimizer` class. See: [optimizers](/optimizers).
-- A loss function. This is the objective that the model will try to minimize. It can be the string identifier of an existing loss function (such as `categorical_crossentropy` or `mse`), or it can be an objective function. See: [losses](/losses).
-- A list of metrics. For any classification problem you will want to set this to `metrics=['accuracy']`. A metric could be the string identifier of an existing metric or a custom metric function.
+- 優化器(optimizer)：它可以只是一個用字串來表示的既有的優化器 (像是：`rmsprop` 或 `adagrad`)，或是一個 `Optimizer` 類別的實體。詳細可以參考 [優化器](/optimizers)。
+- 損失函數(loss function)：這是我們的模型嘗試進行最小化的目標函數。它可以是用字串來表示的既有的損失函數 (像是 `categorical_crossentropy` 或 `mse`)，也可以是一個損失函數。詳細可以參考 [損失函數](/losses)。
+- 指標的串列(list of metrics)。對於任何的分類問題而言，你都會想要將指標設計為 `metrics=['accuracy']`。你可以用字串來表示一個既有的指標，或是任何客製化的指標函式。
 
 ```python
-# For a multi-class classification problem
+# 對於一個多類別分類問題
 model.compile(optimizer='rmsprop',
               loss='categorical_crossentropy',
               metrics=['accuracy'])
 
-# For a binary classification problem
+# 對於一個二元分類問題
 model.compile(optimizer='rmsprop',
               loss='binary_crossentropy',
               metrics=['accuracy'])
 
-# For a mean squared error regression problem
+# 對於一個使用 mean squared error 的回歸問題
 model.compile(optimizer='rmsprop',
               loss='mse')
 
-# For custom metrics
+# 客製化的指標
 import keras.backend as K
 
 def mean_pred(y_true, y_pred):
