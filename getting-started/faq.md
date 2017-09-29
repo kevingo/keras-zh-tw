@@ -1,27 +1,27 @@
-# Keras FAQ: Frequently Asked Keras Questions
+# Keras 問與答: Keras 的常見問題
 
-- [How should I cite Keras?](#how-should-i-cite-keras)
-- [How can I run Keras on GPU?](#how-can-i-run-keras-on-gpu)
-- [What does "sample", "batch", "epoch" mean?](#what-does-sample-batch-epoch-mean)
-- [How can I save a Keras model?](#how-can-i-save-a-keras-model)
-- [Why is the training loss much higher than the testing loss?](#why-is-the-training-loss-much-higher-than-the-testing-loss)
-- [How can I obtain the output of an intermediate layer?](#how-can-i-obtain-the-output-of-an-intermediate-layer)
-- [How can I use Keras with datasets that don't fit in memory?](#how-can-i-use-keras-with-datasets-that-dont-fit-in-memory)
-- [How can I interrupt training when the validation loss isn't decreasing anymore?](#how-can-i-interrupt-training-when-the-validation-loss-isnt-decreasing-anymore)
-- [How is the validation split computed?](#how-is-the-validation-split-computed)
-- [Is the data shuffled during training?](#is-the-data-shuffled-during-training)
-- [How can I record the training / validation loss / accuracy at each epoch?](#how-can-i-record-the-training-validation-loss-accuracy-at-each-epoch)
-- [How can I "freeze" layers?](#how-can-i-freeze-keras-layers)
-- [How can I use stateful RNNs?](#how-can-i-use-stateful-rnns)
-- [How can I remove a layer from a Sequential model?](#how-can-i-remove-a-layer-from-a-sequential-model)
-- [How can I use pre-trained models in Keras?](#how-can-i-use-pre-trained-models-in-keras)
-- [How can I use HDF5 inputs with Keras?](#how-can-i-use-hdf5-inputs-with-keras)
-- [Where is the Keras configuration file stored?](#where-is-the-keras-configuration-file-stored)
-- [How can I obtain reproducible results using Keras during development?](#how-can-i-obtain-reproducible-results-using-keras-during-development)
+- [我要如何引用 Keras？](#我要如何引用-Keras？)
+- [我要如何在 GPU 上執行 Keras？](#我要如何在-GPU-上執行-Keras？)
+- ["樣本(sample)"、"批次(batch)" 和 "epoch(訓練週期)" 代表什麼意思？](#"樣本(sample)"、"批次(batch)"-和-"epoch(訓練週期)"-代表什麼意思？)
+- [我該如何保存 Keras 訓練出來的模型？](#我該如何保存-Keras-訓練出來的模型？)
+- [為什麼我在訓練階段的誤差(loss)比測試階段來得高？](#為什麼我在訓練階段的損失(loss)比測試階段來得高？)
+- [我要如何得到在訓練時中間層的輸出？](#我要如何得到在訓練時中間層的輸出？)
+- [當資料量太大無法一次讀進去記憶體時該怎麼處理？](#當資料量太大無法一次讀進去記憶體時該怎麼處理？)
+- [當訓練的誤差(loss)不再下降時，我要如何終止訓練？](#當訓練的誤差(loss)不再下降時，我要如何終止訓練？)
+- [驗證資料集是怎麼從訓練資料中取出的？](#驗證資料集是怎麼從訓練資料中取出的？)
+- [資料在訓練的過程中會被隨機打亂嗎？](#資料在訓練的過程中會被隨機打亂嗎？)
+- [我如何在每一個訓練的週期，紀錄訓練/測試的誤差和準確率？](#我如何在每一個訓練的週期，紀錄訓練/測試的誤差和準確率？)
+- [我如何"凍結"一個層？](#我如何"凍結"一個層？)
+- [我如何使用一個有狀態的 RNN？](#我如何使用一個有狀態的-RNN？)
+- [我如何從循序式模型中移除一層網路？](#我如何從循序式模型中移除一層網路？)
+- [如何在 Keras 中使用預先訓練好的模型？](#如何在-Keras-中使用預先訓練好的模型？)
+- [如何在 Keras 中使用 HDF5 檔案當成輸入？](#如何在-Keras-中使用-HDF5-檔案當成輸入？)
+- [Keras 設定檔案儲存在什麼位置？](#Keras-設定檔案儲存在什麼位置？)
+- [在使用 Keras 的開發過程中，我如何得到可以複現的結果？](#在使用-Keras-的開發過程中，我如何得到可以複現的結果？)
 
 ---
 
-### How should I cite Keras?
+### 我要如何引用 Keras？
 
 Please cite Keras in your publications if it helps your research. Here is an example BibTeX entry:
 
@@ -37,7 +37,7 @@ Please cite Keras in your publications if it helps your research. Here is an exa
 
 ---
 
-### How can I run Keras on GPU?
+### 我要如何在 GPU 上執行 Keras？
 
 If you are running on the TensorFlow or CNTK backends, your code will automatically run on GPU if any available GPU is detected.
 
@@ -61,7 +61,7 @@ theano.config.floatX = 'float32'
 
 ---
 
-### What does "sample", "batch", "epoch" mean?
+### "樣本(sample)"、"批次(batch)" 和 "epoch(訓練週期)" 代表什麼意思？
 
 Below are some common definitions that are necessary to know and understand to correctly utilize Keras:
 
@@ -76,7 +76,7 @@ Below are some common definitions that are necessary to know and understand to c
 
 ---
 
-### How can I save a Keras model?
+### 我該如何保存 Keras 訓練出來的模型？
 
 #### Saving/loading whole models (architecture + weights + optimizer state)
 
@@ -204,7 +204,7 @@ model = model_from_json(json_string, custom_objects={'AttentionLayer': Attention
 
 ---
 
-### Why is the training loss much higher than the testing loss?
+### 為什麼我在訓練階段的損失(loss)比測試階段來得高？
 
 A Keras model has two modes: training and testing. Regularization mechanisms, such as Dropout and L1/L2 weight regularization, are turned off at testing time.
 
@@ -212,7 +212,7 @@ Besides, the training loss is the average of the losses over each batch of train
 
 ---
 
-### How can I obtain the output of an intermediate layer?
+### 我要如何得到在訓練時中間層的輸出？
 
 One simple way is to create a new `Model` that will output the layers that you are interested in:
 
@@ -256,7 +256,7 @@ layer_output = get_3rd_layer_output([x, 1])[0]
 
 ---
 
-### How can I use Keras with datasets that don't fit in memory?
+### 當資料量太大無法一次讀進去記憶體時該怎麼處理？
 
 You can do batch training using `model.train_on_batch(x, y)` and `model.test_on_batch(x, y)`. See the [models documentation](/models/sequential).
 
@@ -266,7 +266,7 @@ You can see batch training in action in our [CIFAR10 example](https://github.com
 
 ---
 
-### How can I interrupt training when the validation loss isn't decreasing anymore?
+### 當訓練的誤差(loss)不再下降時，我要如何終止訓練？
 
 You can use an `EarlyStopping` callback:
 
@@ -280,7 +280,7 @@ Find out more in the [callbacks documentation](/callbacks).
 
 ---
 
-### How is the validation split computed?
+### 驗證資料集是怎麼從訓練資料中取出的？
 
 If you set the `validation_split` argument in `model.fit` to e.g. 0.1, then the validation data used will be the *last 10%* of the data. If you set it to 0.25, it will be the last 25% of the data, etc. Note that the data isn't shuffled before extracting the validation split, so the validation is literally just the *last* x% of samples in the input you passed.
 
@@ -288,7 +288,7 @@ The same validation set is used for all epochs (within a same call to `fit`).
 
 ---
 
-### Is the data shuffled during training?
+### 資料在訓練的過程中會被隨機打亂嗎？
 
 Yes, if the `shuffle` argument in `model.fit` is set to `True` (which is the default), the training data will be randomly shuffled at each epoch.
 
@@ -297,7 +297,7 @@ Validation data is never shuffled.
 ---
 
 
-### How can I record the training / validation loss / accuracy at each epoch?
+### 我如何在每一個訓練的週期，紀錄訓練/測試的誤差和準確率？
 
 The `model.fit` method returns an `History` callback, which has a `history` attribute containing the lists of successive losses and other metrics.
 
@@ -308,7 +308,7 @@ print(hist.history)
 
 ---
 
-### How can I "freeze" Keras layers?
+### 我如何"凍結"一個層？
 
 To "freeze" a layer means to exclude it from training, i.e. its weights will never be updated. This is useful in the context of fine-tuning a model, or using fixed embeddings for a text input.
 
@@ -342,7 +342,7 @@ trainable_model.fit(data, labels)  # this updates the weights of `layer`
 
 ---
 
-### How can I use stateful RNNs?
+### 我如何使用一個有狀態的 RNN？
 
 Making a RNN stateful means that the states for the samples of each batch will be reused as initial states for the samples in the next batch.
 
@@ -392,7 +392,7 @@ Notes that the methods `predict`, `fit`, `train_on_batch`, `predict_classes`, et
 
 ---
 
-### How can I remove a layer from a Sequential model?
+### 我如何從循序式模型中移除一層網路？
 
 You can remove the last added layer in a Sequential model by calling `.pop()`:
 
@@ -409,7 +409,7 @@ print(len(model.layers))  # "1"
 
 ---
 
-### How can I use pre-trained models in Keras?
+### 如何在 Keras 中使用預先訓練好的模型？
 
 Code and pre-trained weights are available for the following image classification models:
 
@@ -447,7 +447,7 @@ The VGG16 model is also the basis for several Keras example scripts:
 
 ---
 
-### How can I use HDF5 inputs with Keras?
+### 如何在 Keras 中使用 HDF5 檔案當成輸入？
 
 You can use the `HDF5Matrix` class from `keras.utils.io_utils`. See [the HDF5Matrix documentation](/utils/#hdf5matrix) for details.
 
@@ -462,7 +462,7 @@ with h5py.File('input/file.hdf5', 'r') as f:
 
 ---
 
-### Where is the Keras configuration file stored?
+### Keras 設定檔案儲存在什麼位置？
 
 The default directory where all Keras data is stored is:
 
@@ -495,7 +495,7 @@ Likewise, cached dataset files, such as those downloaded with [`get_file()`](/ut
 
 ---
 
-### How can I obtain reproducible results using Keras during development?
+### 在使用 Keras 的開發過程中，我如何得到可以複現的結果？
 
 During development of a model, sometimes it is useful to be able to obtain reproducible results from run to run in order to determine if a change in performance is due to an actual model or data modification, or merely a result of a new random sample.  The below snippet of code provides an example of how to obtain reproducible results - this is geared towards a TensorFlow backend for a Python 3 environment.
 
