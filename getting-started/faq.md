@@ -23,7 +23,7 @@
 
 ### 我要如何引用 Keras？
 
-Please cite Keras in your publications if it helps your research. Here is an example BibTeX entry:
+如果 Keras 對你的研究有幫助時，歡迎引用。底下是一個 BibTeX 的範例：
 
 ```
 @misc{chollet2015keras,
@@ -39,20 +39,22 @@ Please cite Keras in your publications if it helps your research. Here is an exa
 
 ### 我要如何在 GPU 上執行 Keras？
 
-If you are running on the TensorFlow or CNTK backends, your code will automatically run on GPU if any available GPU is detected.
+如果你的後端是使用 TensorFlow 或 CNTK 時，只要運作的環境上有 GPU，Keras 就會自動使用它來執行你的程式。
 
-If you are running on the Theano backend, you can use one of the following methods:
+如果你的後端是使用 Theano，可以使用底下幾個方式來進行設定：
 
-Method 1: use Theano flags.
+方法一：使用 Theano flags
+
 ```bash
 THEANO_FLAGS=device=gpu,floatX=float32 python my_keras_script.py
 ```
 
-The name 'gpu' might have to be changed depending on your device's identifier (e.g. `gpu0`, `gpu1`, etc).
+'gpu' 這個命名會隨著你的機器上的名稱而有所變更(例如可能是：`gpu0`、`gpu1` 等)。
 
-Method 2: set up your `.theanorc`: [Instructions](http://deeplearning.net/software/theano/library/config.html)
+方法二：設定`.theanorc` 檔案： [操作方式](http://deeplearning.net/software/theano/library/config.html)
 
-Method 3: manually set `theano.config.device`, `theano.config.floatX` at the beginning of your code:
+方法三：在你的程式碼中的一開始手動設定 `theano.config.device`、`theano.config.floatX`
+
 ```python
 import theano
 theano.config.device = 'gpu'
