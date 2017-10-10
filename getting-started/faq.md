@@ -4,7 +4,7 @@
 - [我要如何在 GPU 上執行 Keras？](#我要如何在-GPU-上執行-Keras？)
 - ["樣本(sample)"、"批次(batch)" 和 "epoch(訓練週期)" 代表什麼意思？](#"樣本(sample)"、"批次(batch)"-和-"epoch(訓練週期)"-代表什麼意思？)
 - [我該如何保存 Keras 訓練出來的模型？](#我該如何保存-Keras-訓練出來的模型？)
-- [為什麼我在訓練階段的誤差(loss)比測試階段來得高？](#為什麼我在訓練階段的損失(loss)比測試階段來得高？)
+- [為什麼我在訓練階段的誤差(loss)比測試階段來得高？](#為什麼我在訓練階段的誤差(loss)比測試階段來得高？)
 - [我要如何得到在訓練時中間層的輸出？](#我要如何得到在訓練時中間層的輸出？)
 - [當資料量太大無法一次讀進去記憶體時該怎麼處理？](#當資料量太大無法一次讀進去記憶體時該怎麼處理？)
 - [當訓練的誤差(loss)不再下降時，我要如何終止訓練？](#當訓練的誤差(loss)不再下降時，我要如何終止訓練？)
@@ -65,46 +65,45 @@ theano.config.floatX = 'float32'
 
 ### "樣本(sample)"、"批次(batch)" 和 "epoch(訓練週期)" 代表什麼意思？
 
-Below are some common definitions that are necessary to know and understand to correctly utilize Keras:
+當你想要正確使用 Keras 時，底下是一些你必須要知道的定義：
 
-- **Sample**: one element of a dataset.
-  - *Example:* one image is a **sample** in a convolutional network
-  - *Example:* one audio file is a **sample** for a speech recognition model
-- **Batch**: a set of *N* samples. The samples in a **batch** are processed independently, in parallel. If training, a batch results in only one update to the model.
-  - A **batch** generally approximates the distribution of the input data better than a single input. The larger the batch, the better the approximation; however, it is also true that the batch will take longer to processes and will still result in only one update. For inference (evaluate/predict), it is recommended to pick a batch size that is as large as you can afford without going out of memory (since larger batches will usually result in faster evaluating/prediction).
-- **Epoch**: an arbitrary cutoff, generally defined as "one pass over the entire dataset", used to separate training into distinct phases, which is useful for logging and periodic evaluation.
-  - When using `evaluation_data` or `evaluation_split` with the `fit` method of Keras models, evaluation will be run at the end of every **epoch**.
-  - Within Keras, there is the ability to add [callbacks](https://keras.io/callbacks/) specifically designed to be run at the end of an **epoch**. Examples of these are learning rate changes and model checkpointing (saving).
+- **樣本(sample)**: 資料集當中的一筆資料
+  - *例如：* 在卷積神經網路 (CNN) 中，一張圖片就是一個**樣本**。
+  - *例如：* 在語音辨識模型中，一個音檔就是一個**樣本**。
+- **批(batch)**: *N* 個樣本的集合。在一批當中的**樣本**會被獨立且平行化的處理。
+  - 一**批**的資料基本上比起單一個樣本而言，可以更好的模擬資料的分佈。一批的資料越多，對於模擬資料分佈的效果越好。然而，執行完一次 batch 也只會更新一次網路的權重。對於評估或預測來說，我們建議你在用光你的記憶體之前，盡可能使用較大的 batch size (通常較大的 batch size 代表進行一次評估或預估的速度較快)。
+- **Epoch**: Epoch 通常定義為 "整個神經網路更新完一次整個資料集的參數的過程"。Epoch 會把訓練過程分成數個階段，這樣可以比較好的紀錄和評估模型的訓練過程。
+  - 當你在 Keras 中使用 `evaluation_data` 或 `evaluation_split` 的 `fit` 方法時，在每一次 **epoch** 執行完後都會進行一次驗證。
+  - 在 Keras 中，你可以在每次 **epoch** 結束後執行 [callbacks](https://keras.io/callbacks/) 函式，用來調整學習率(learning rate) 或是顯示一些模型的資訊。
 
 ---
 
 ### 我該如何保存 Keras 訓練出來的模型？
 
-#### Saving/loading whole models (architecture + weights + optimizer state)
+#### 儲存/讀取整個模型 (架構 + 權重 + optimizer 狀態)
 
-*It is not recommended to use pickle or cPickle to save a Keras model.*
+*我們並不建議使用 pickle 或 cPickle 來保存 Keras 的模型*
 
-You can use `model.save(filepath)` to save a Keras model into a single HDF5 file which will contain:
+你可以使用 `model.save(filepath)` 將 Keras 的模型儲存到一個 HDF5 的檔案中，這當中包含：
 
-- the architecture of the model, allowing to re-create the model
-- the weights of the model
-- the training configuration (loss, optimizer)
-- the state of the optimizer, allowing to resume training exactly where you left off.
+- 模型的架構，這可以讓你重建此模型
+- 模型的權重
+- 訓練的設定 (loss、optimizer)
+- optimizer 的狀態，允許你在上次訓練中斷的地方重新開始訓練
 
-You can then use `keras.models.load_model(filepath)` to reinstantiate your model.
-`load_model` will also take care of compiling the model using the saved training configuration
-(unless the model was never compiled in the first place).
+你可以使用 `keras.models.load_model(filepath)` 來重新實例化模型。
+`load_model` 也會使用儲存的設定來重新編譯你的模型(除非這個模型是第一次使用，之前從來沒有編譯過)。
 
-Example:
+範例：
 
 ```python
 from keras.models import load_model
 
-model.save('my_model.h5')  # creates a HDF5 file 'my_model.h5'
-del model  # deletes the existing model
+model.save('my_model.h5')  # 建立 HDF5 檔案 'my_model.h5'
+del model  # 刪除既有的模型
 
-# returns a compiled model
-# identical to the previous one
+# 回傳一個編譯後的模型
+# 跟前一個相同
 model = load_model('my_model.h5')
 ```
 
@@ -206,7 +205,7 @@ model = model_from_json(json_string, custom_objects={'AttentionLayer': Attention
 
 ---
 
-### 為什麼我在訓練階段的損失(loss)比測試階段來得高？
+### 為什麼我在訓練階段的誤差(loss)比測試階段來得高？
 
 A Keras model has two modes: training and testing. Regularization mechanisms, such as Dropout and L1/L2 weight regularization, are turned off at testing time.
 
