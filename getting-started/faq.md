@@ -107,28 +107,28 @@ del model  # 刪除既有的模型
 model = load_model('my_model.h5')
 ```
 
-#### Saving/loading only a model's architecture
+#### 儲存/讀取模型的架構
 
-If you only need to save the **architecture of a model**, and not its weights or its training configuration, you can do:
+如果你只需要儲存**模型的架構**，不需要權重和訓練的設定，你可以這樣做：
 
 ```python
-# save as JSON
+# 存成 JSON
 json_string = model.to_json()
 
-# save as YAML
+# 存成 YAML
 yaml_string = model.to_yaml()
 ```
 
-The generated JSON / YAML files are human-readable and can be manually edited if needed.
+產生出來的 JSON/YAML 檔案是可以被讀取的，如果必要時還可以手動修改。
 
-You can then build a fresh model from this data:
+你可以從這些檔案中產生對應的模型：
 
 ```python
-# model reconstruction from JSON:
+# 從 JSON 產生模型：
 from keras.models import model_from_json
 model = model_from_json(json_string)
 
-# model reconstruction from YAML
+# 從 YAML 產生模型：
 from keras.models import model_from_yaml
 model = model_from_yaml(yaml_string)
 ```
