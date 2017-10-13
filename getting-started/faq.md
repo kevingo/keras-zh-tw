@@ -133,29 +133,29 @@ from keras.models import model_from_yaml
 model = model_from_yaml(yaml_string)
 ```
 
-#### Saving/loading only a model's weights
+#### 僅儲存/讀取模型的權重
 
-If you need to save the **weights of a model**, you can do so in HDF5 with the code below.
+如果你要儲存**模型的權重**，你可以使用 HDF5 來達成。
 
-Note that you will first need to install HDF5 and the Python library h5py, which do not come bundled with Keras.
+注意，你需要先安裝 HDF5 和 HDF5 的 Python 函式庫，這些是沒有包含在 Keras 當中的。
 
 ```python
 model.save_weights('my_model_weights.h5')
 ```
 
-Assuming you have code for instantiating your model, you can then load the weights you saved into a model with the *same* architecture:
+如果你已經初始化你的模型了，你可以透過以下方式讀取參數的權重，要注意你的架構必須*相同*。
 
 ```python
 model.load_weights('my_model_weights.h5')
 ```
 
-If you need to load weights into a *different* architecture (with some layers in common), for instance for fine-tuning or transfer-learning, you can load weights by *layer name*:
+如果你想要讀取參數到不同的架構時(但某些層是一樣的)，例如像是 fine-tune 或 transfer-learning，你可以指定*層的名稱*來讀取參數：
 
 ```python
 model.load_weights('my_model_weights.h5', by_name=True)
 ```
 
-For example:
+例如：
 
 ```python
 """
