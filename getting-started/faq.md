@@ -176,10 +176,9 @@ model.add(Dense(10, name='new_dense'))  # will not be loaded
 model.load_weights(fname, by_name=True)
 ```
 
-#### Handling custom layers (or other custom objects) in saved models
+#### 在已經儲存的模型中處理客製化層 (或其他客製化物件)
 
-If the model you want to load includes custom layers or other custom classes or functions, 
-you can pass them to the loading mechanism via the `custom_objects` argument: 
+如果你想要讀取的模型包含了客製化層、其他客製化的類別或函式，你可以在讀取的時候，透過 `custom_objects` 參數來傳遞他們：
 
 ```python
 from keras.models import load_model
@@ -187,7 +186,7 @@ from keras.models import load_model
 model = load_model('my_model.h5', custom_objects={'AttentionLayer': AttentionLayer})
 ```
 
-Alternatively, you can use a [custom object scope](https://keras.io/utils/#customobjectscope):
+或是你也可以使用[客製化物件範圍](https://keras.io/utils/#customobjectscope):
 
 ```python
 from keras.utils import CustomObjectScope
@@ -196,7 +195,7 @@ with CustomObjectScope({'AttentionLayer': AttentionLayer}):
     model = load_model('my_model.h5')
 ```
 
-Custom objects handling works the same way for `load_model`, `model_from_json`, `model_from_yaml`:
+在 `load_model`、`model_from_json` 和  `model_from_yaml`這些方法當中處理客製化物件的方式都一樣：
 
 ```python
 from keras.models import model_from_json
