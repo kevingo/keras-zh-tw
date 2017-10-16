@@ -206,15 +206,15 @@ model = model_from_json(json_string, custom_objects={'AttentionLayer': Attention
 
 ### 為什麼我在訓練階段的誤差(loss)比測試階段來得高？
 
-A Keras model has two modes: training and testing. Regularization mechanisms, such as Dropout and L1/L2 weight regularization, are turned off at testing time.
+Keras 的模型包含兩種模式：訓練和測試。而正規化的機制，像是：Dropout、L1/L2 weight 正規化在測試時是被關閉的。
 
-Besides, the training loss is the average of the losses over each batch of training data. Because your model is changing over time, the loss over the first batches of an epoch is generally higher than over the last batches. On the other hand, the testing loss for an epoch is computed using the model as it is at the end of the epoch, resulting in a lower loss.
+此外，訓練時的誤差是每個 batch 誤差的平均，在訓練的過程中，一般來說，每個 epoch 中的第一個 batch 的誤差會比後面的 batch 要大一些。另一方面，每一個 epoch 結束後所計算的測試誤差是使用模型模型在 epoch 結束時的狀態所決定，這時候的誤差通常比較小一點。
 
 ---
 
 ### 我要如何得到在訓練時中間層的輸出？
 
-One simple way is to create a new `Model` that will output the layers that you are interested in:
+最簡單的做法是建立一個新的 `模型`，讓他輸出你感興趣該中間層的輸出。
 
 ```python
 from keras.models import Model
@@ -227,7 +227,7 @@ intermediate_layer_model = Model(inputs=model.input,
 intermediate_output = intermediate_layer_model.predict(data)
 ```
 
-Alternatively, you can build a Keras function that will return the output of a certain layer given a certain input, for example:
+此外，你可以使用 Keras 的函式來得到特定輸入所產生的輸出：
 
 ```python
 from keras import backend as K
@@ -238,10 +238,9 @@ get_3rd_layer_output = K.function([model.layers[0].input],
 layer_output = get_3rd_layer_output([x])[0]
 ```
 
-Similarly, you could build a Theano and TensorFlow function directly.
+同樣的，你也可以直接使用 Theano 和 Tensorflow 的函式。
 
-Note that if your model has a different behavior in training and testing phase (e.g. if it uses `Dropout`, `BatchNormalization`, etc.), you will need
-to pass the learning phase flag to your function:
+注意，如果你的模型在訓練和測試階段的行為不同(例如：使用了 `Dropout`、`BatchNormalization`)，你你需要在函式中傳入 learning_phase 這個參數：
 
 ```python
 get_3rd_layer_output = K.function([model.layers[0].input, K.learning_phase()],
