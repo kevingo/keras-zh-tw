@@ -267,7 +267,7 @@ layer_output = get_3rd_layer_output([x, 1])[0]
 
 ### 當訓練的誤差(loss)不再下降時，我要如何終止訓練？
 
-You can use an `EarlyStopping` callback:
+你可以使用 `EarlyStopping` 這個 callback 函式：
 
 ```python
 from keras.callbacks import EarlyStopping
@@ -275,7 +275,7 @@ early_stopping = EarlyStopping(monitor='val_loss', patience=2)
 model.fit(x, y, validation_split=0.2, callbacks=[early_stopping])
 ```
 
-Find out more in the [callbacks documentation](/callbacks).
+對於 callback，可以參考 [callbacks 文件](/callbacks).
 
 ---
 
