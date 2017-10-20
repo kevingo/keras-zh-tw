@@ -257,11 +257,11 @@ layer_output = get_3rd_layer_output([x, 1])[0]
 
 ### 當資料量太大無法一次讀進去記憶體時該怎麼處理？
 
-You can do batch training using `model.train_on_batch(x, y)` and `model.test_on_batch(x, y)`. See the [models documentation](/models/sequential).
+你可以用 batch 的訓練方式：`model.train_on_batch(x, y)` 和 `model.test_on_batch(x, y)`。可以參考[模型的文件](/models/sequential)。
 
-Alternatively, you can write a generator that yields batches of training data and use the method `model.fit_generator(data_generator, steps_per_epoch, epochs)`.
+此外，你也可以寫一個每次產生一個 batch 樣本的產生器，並呼叫：`model.fit_generator(data_generator, steps_per_epoch, epochs)`。
 
-You can see batch training in action in our [CIFAR10 example](https://github.com/fchollet/keras/blob/master/examples/cifar10_cnn.py).
+你可以參考[CIFAR10](https://github.com/fchollet/keras/blob/master/examples/cifar10_cnn.py)中的範例來了解這種用法。
 
 ---
 
