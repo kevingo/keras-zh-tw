@@ -281,17 +281,17 @@ model.fit(x, y, validation_split=0.2, callbacks=[early_stopping])
 
 ### 驗證資料集是怎麼從訓練資料中取出的？
 
-If you set the `validation_split` argument in `model.fit` to e.g. 0.1, then the validation data used will be the *last 10%* of the data. If you set it to 0.25, it will be the last 25% of the data, etc. Note that the data isn't shuffled before extracting the validation split, so the validation is literally just the *last* x% of samples in the input you passed.
+如果你在 `model.fit` 中設定 `validation_split` 參數為，比如說 0.1，那麼驗證資料集會是訓練資料的*最後 10%*。如果你設定為 0.25，那驗證資料集會是最後 25%。注意，在取出驗證資料時，訓練資料並不會被隨機打亂，因此驗證資料就會是*最後的那些資料*。
 
-The same validation set is used for all epochs (within a same call to `fit`).
+相同的驗證資料會被用在所有的 epochs 當中。
 
 ---
 
 ### 資料在訓練的過程中會被隨機打亂嗎？
 
-Yes, if the `shuffle` argument in `model.fit` is set to `True` (which is the default), the training data will be randomly shuffled at each epoch.
+是的。只要你在 `model.fit` 中，將 `shuffle` 參數設定為 `True` (其實這是預設值)，訓練資料會在每個 epoch 中被隨機打亂。
 
-Validation data is never shuffled.
+驗證資料則不會被打亂。
 
 ---
 
