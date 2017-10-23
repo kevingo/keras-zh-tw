@@ -11,7 +11,7 @@
 - [驗證資料集是怎麼從訓練資料中取出的？](#驗證資料集是怎麼從訓練資料中取出的？)
 - [資料在訓練的過程中會被隨機打亂嗎？](#資料在訓練的過程中會被隨機打亂嗎？)
 - [我如何在每一個訓練的週期，紀錄訓練/測試的誤差和準確率？](#我如何在每一個訓練的週期，紀錄訓練/測試的誤差和準確率？)
-- [我如何"凍結"一個層？](#我如何"凍結"一個層？)
+- [我如何"凍結"一個 layer](#我如何"凍結"一個 layer)
 - [我如何使用一個有狀態的 RNN？](#我如何使用一個有狀態的-RNN？)
 - [我如何從循序式模型中移除一層網路？](#我如何從循序式模型中移除一層網路？)
 - [如何在 Keras 中使用預先訓練好的模型？](#如何在-Keras-中使用預先訓練好的模型？)
@@ -295,10 +295,9 @@ model.fit(x, y, validation_split=0.2, callbacks=[early_stopping])
 
 ---
 
-
 ### 我如何在每一個訓練的週期，紀錄訓練/測試的誤差和準確率？
 
-The `model.fit` method returns an `History` callback, which has a `history` attribute containing the lists of successive losses and other metrics.
+`model.fit` 方法會回傳一個 `History` 的 callback，其中有一個屬性是 `history`，當中包含了訓練的誤差和其他評量的結果。
 
 ```python
 hist = model.fit(x, y, validation_split=0.2)
@@ -307,17 +306,17 @@ print(hist.history)
 
 ---
 
-### 我如何"凍結"一個層？
+### 我如何"凍結"一個 layer？
 
-To "freeze" a layer means to exclude it from training, i.e. its weights will never be updated. This is useful in the context of fine-tuning a model, or using fixed embeddings for a text input.
+"凍結" 一個 layer 代表將它從訓練中移除，換句話說，該 layer 的權重是永遠不會被更新。在進行模型的微調、或使用固定 embedding 在處理文字輸入時，都需要用到這個技巧。 
 
-You can pass a `trainable` argument (boolean) to a layer constructor to set a layer to be non-trainable:
+你可以傳入一個 `trainable` 參數 (boolean) 到 layer 的建構子中來凍結該 layer。
 
 ```python
 frozen_layer = Dense(32, trainable=False)
 ```
 
-Additionally, you can set the `trainable` property of a layer to `True` or `False` after instantiation. For this to take effect, you will need to call `compile()` on your model after modifying the `trainable` property. Here's an example:
+此外，你可以在模型初始化之後，透過設定 layer 的 `trainable` 參數為 `True` 或 `False` 來決定是否凍結該 layer。如果要讓改變生效，你需要在修改完後呼叫 `compile()` 方法，底下是一個相關範例：
 
 ```python
 x = Input(shape=(32,))
