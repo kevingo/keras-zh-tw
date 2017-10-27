@@ -392,7 +392,7 @@ Notes that the methods `predict`, `fit`, `train_on_batch`, `predict_classes`, et
 
 ### 我如何從循序式模型中移除一層網路？
 
-You can remove the last added layer in a Sequential model by calling `.pop()`:
+你可以在循序模型中，透過 `.pop()` 移除最後一個加入的 layer：
 
 ```python
 model = Sequential()
