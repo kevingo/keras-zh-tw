@@ -447,9 +447,9 @@ The VGG16 model is also the basis for several Keras example scripts:
 
 ### 如何在 Keras 中使用 HDF5 檔案當成輸入？
 
-You can use the `HDF5Matrix` class from `keras.utils.io_utils`. See [the HDF5Matrix documentation](/utils/#hdf5matrix) for details.
+你可以使用 `keras.utils.io_utils` 中的 `HDF5Matrix` 類別。參考 [HDF5Matrix 文件](/utils/#hdf5matrix) 中詳細的說明。
 
-You can also directly use a HDF5 dataset:
+你也可以直接從 HDF5 的檔案格式中讀取資料集：
 
 ```python
 import h5py
