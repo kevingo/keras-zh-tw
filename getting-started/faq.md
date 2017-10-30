@@ -462,16 +462,17 @@ with h5py.File('input/file.hdf5', 'r') as f:
 
 ### Keras 設定檔案儲存在什麼位置？
 
-The default directory where all Keras data is stored is:
+Keras 所有的資料預設會儲存在：
 
 ```bash
 $HOME/.keras/
 ```
 
-Note that Windows users should replace `$HOME` with `%USERPROFILE%`.
-In case Keras cannot create the above directory (e.g. due to permission issues), `/tmp/.keras/` is used as a backup.
+注意，Windows 使用者要將 `$HOME` 改為 `%USERPROFILE%`。
 
-The Keras configuration file is a JSON file stored at `$HOME/.keras/keras.json`. The default configuration file looks like this:
+為了預防 Keras 無法使用上述的目錄(比如說因為權限問題)，會使用 `/tmp/.keras` 作為備份目錄。
+
+Keras 的設定檔案是 JSON 格式，儲存在 `$HOME/.keras/keras.json`。預設的設定檔案格式類似如下：
 
 ```
 {
@@ -482,14 +483,16 @@ The Keras configuration file is a JSON file stored at `$HOME/.keras/keras.json`.
 }
 ```
 
-It contains the following fields:
+檔案當中包含以下欄位：
 
-- The image data format to be used as default by image processing layers and utilities (either `channels_last` or `channels_first`).
-- The `epsilon` numerical fuzz factor to be used to prevent division by zero in some operations.
-- The default float data type.
-- The default backend. See the [backend documentation](/backend).
+- 在影像處理 layer 或其他工具中所預設的影像資料處理格式 (`channels_last` 或 `channels_first`)。
+- 在某些運算中所使用的 `epsilon` 數值模糊因子，防止除以零的情形產生。
+- 預設的浮點數資料型態。
+- 預設的後端。詳見 [後端文件](/backend)。
 
 Likewise, cached dataset files, such as those downloaded with [`get_file()`](/utils/#get_file), are stored by default in `$HOME/.keras/datasets/`.
+
+同樣的，某些快取的檔案，比如說透過 [`get_file()`](/utils/#get_file) 下載的資料集，預設會被儲存在 `$HOME/.keras/datasets/`。
 
 ---
 
