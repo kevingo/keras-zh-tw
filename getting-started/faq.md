@@ -498,7 +498,7 @@ Likewise, cached dataset files, such as those downloaded with [`get_file()`](/ut
 
 ### 在使用 Keras 的開發過程中，我如何得到可以複現的結果？
 
-During development of a model, sometimes it is useful to be able to obtain reproducible results from run to run in order to determine if a change in performance is due to an actual model or data modification, or merely a result of a new random sample.  The below snippet of code provides an example of how to obtain reproducible results - this is geared towards a TensorFlow backend for a Python 3 environment.
+在開發階段，某些時候得到可以復現的結果是有用的，這樣才能知道性能的改變是因為模型架構的變化，還是因為資料的修改所造成，抑或只是因為隨機取樣的關係。下面的程式碼展示了如何得到可以複現結果的方法，這適用於 Python 3 + 使用 TensorFlow 作為後端的架構：
 
 ```python
 import numpy as np
