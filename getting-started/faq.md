@@ -409,7 +409,7 @@ print(len(model.layers))  # "1"
 
 ### 如何在 Keras 中使用預先訓練好的模型？
 
-Code and pre-trained weights are available for the following image classification models:
+以下關於影像分類的模型已經被訓練好可以直接使用：
 
 - Xception
 - VGG16
@@ -419,7 +419,7 @@ Code and pre-trained weights are available for the following image classificatio
 - Inception-ResNet v2
 - MobileNet v1
 
-They can be imported from the module `keras.applications`:
+你可以從 `keras.applications` 引用：
 
 ```python
 from keras.applications.xception import Xception
@@ -433,11 +433,11 @@ from keras.applications.mobilenet import MobileNet
 model = VGG16(weights='imagenet', include_top=True)
 ```
 
-For a few simple usage examples, see [the documentation for the Applications module](/applications).
+關於這些參考範例，可以閱讀 [應用模組文件](/applications) 章節。
 
-For a detailed example of how to use such a pre-trained model for feature extraction or for fine-tuning, see [this blog post](http://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html).
+關於如何使用這些預先訓練好的模型來做特徵萃取或是更細部的調整，請閱讀[此文章](http://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html)。
 
-The VGG16 model is also the basis for several Keras example scripts:
+VGG16 的模型在許多 Keras 的範例中也是很基本會用到的：
 
 - [Style transfer](https://github.com/fchollet/keras/blob/master/examples/neural_style_transfer.py)
 - [Feature visualization](https://github.com/fchollet/keras/blob/master/examples/conv_filter_visualization.py)
