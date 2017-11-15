@@ -1,6 +1,6 @@
 # 開始學習 Keras 循序式模型
 
-`循序式` 模型是數個層的線性堆疊。
+`循序式` 模型是數個 layer 的線性堆疊。
 
 你可以在建構子中傳入層的串列來建立 `循序式` 的模型：
 
@@ -130,22 +130,20 @@ model.fit(data, one_hot_labels, epochs=10, batch_size=32)
 ----
 
 
-## Examples
+## 範例
 
-Here are a few examples to get you started!
-
-In the [examples folder](https://github.com/fchollet/keras/tree/master/examples), you will also find example models for real datasets:
-
-- CIFAR10 small images classification: Convolutional Neural Network (CNN) with realtime data augmentation
-- IMDB movie review sentiment classification: LSTM over sequences of words
-- Reuters newswires topic classification: Multilayer Perceptron (MLP)
-- MNIST handwritten digits classification: MLP & CNN
-- Character-level text generation with LSTM
-
-...and more.
+底下是一些範例，讓你可以快速上手！
 
 
-### Multilayer Perceptron (MLP) for multi-class softmax classification:
+在 [範例的資料夾](https://github.com/fchollet/keras/tree/master/examples) 中，你也會看到使用以下真實世界資料集的模型：
+
+- CIFAR10 影像分類：Convolutional Neural Network (CNN) 加上即時的資料增強變換(Data augmentation)
+- IMDB 電影評論情緒分類：使用 LSTM 來進行分類
+- 路透社新聞主題分類：使用多層感知器(MLP)
+- MNIST 手寫數字分類：MLP 和 CNN
+- 使用 LSTM 來進行文字生成
+
+### 使用多層感知器 (MLP) 和 softmax 來進行多元分類：
 
 ```python
 import keras
@@ -153,7 +151,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation
 from keras.optimizers import SGD
 
-# Generate dummy data
+# 產生虛擬資料
 import numpy as np
 x_train = np.random.random((1000, 20))
 y_train = keras.utils.to_categorical(np.random.randint(10, size=(1000, 1)), num_classes=10)
@@ -161,9 +159,8 @@ x_test = np.random.random((100, 20))
 y_test = keras.utils.to_categorical(np.random.randint(10, size=(100, 1)), num_classes=10)
 
 model = Sequential()
-# Dense(64) is a fully-connected layer with 64 hidden units.
-# in the first layer, you must specify the expected input data shape:
-# here, 20-dimensional vectors.
+# Dense(64) 是一個全連接的 layer，有 64 的 hidden unit。
+# 在第一個 layer 中，你必須要宣告預期資料輸入時的長相：在這裡，指的是 20 維的向量
 model.add(Dense(64, activation='relu', input_dim=20))
 model.add(Dropout(0.5))
 model.add(Dense(64, activation='relu'))
@@ -181,15 +178,14 @@ model.fit(x_train, y_train,
 score = model.evaluate(x_test, y_test, batch_size=128)
 ```
 
-
-### MLP for binary classification:
+### 使用多層感知器(MLP) 來進行二元分類：
 
 ```python
 import numpy as np
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
 
-# Generate dummy data
+# 產生虛擬資料
 x_train = np.random.random((1000, 20))
 y_train = np.random.randint(2, size=(1000, 1))
 x_test = np.random.random((100, 20))
@@ -212,8 +208,7 @@ model.fit(x_train, y_train,
 score = model.evaluate(x_test, y_test, batch_size=128)
 ```
 
-
-### VGG-like convnet:
+### VGG-like convnet：
 
 ```python
 import numpy as np
@@ -223,7 +218,7 @@ from keras.layers import Dense, Dropout, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 from keras.optimizers import SGD
 
-# Generate dummy data
+# 產生虛擬資料
 x_train = np.random.random((100, 100, 100, 3))
 y_train = keras.utils.to_categorical(np.random.randint(10, size=(100, 1)), num_classes=10)
 x_test = np.random.random((20, 100, 100, 3))
