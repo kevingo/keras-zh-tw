@@ -2,7 +2,7 @@
 
 `循序式` 模型是數個 layer 的線性堆疊。
 
-你可以在建構子中傳入層的串列來建立 `循序式` 的模型：
+你可以在建構子中傳入 layer 的串列來建立 `循序式` 的模型：
 
 ```python
 from keras.models import Sequential
@@ -16,7 +16,7 @@ model = Sequential([
 ])
 ```
 
-你也可以使用 `.add()` 方法來加入一層：
+你也可以使用 `.add()` 方法來加入一個 layer：
 
 ```python
 model = Sequential()
@@ -129,11 +129,9 @@ model.fit(data, one_hot_labels, epochs=10, batch_size=32)
 
 ----
 
-
 ## 範例
 
 底下是一些範例，讓你可以快速上手！
-
 
 在 [範例的資料夾](https://github.com/fchollet/keras/tree/master/examples) 中，你也會看到使用以下真實世界資料集的模型：
 

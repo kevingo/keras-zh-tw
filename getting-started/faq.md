@@ -344,9 +344,11 @@ trainable_model.fit(data, labels)  # this updates the weights of `layer`
 
 Making a RNN stateful means that the states for the samples of each batch will be reused as initial states for the samples in the next batch.
 
-When using stateful RNNs, it is therefore assumed that:
+建立一個有狀態的 RNN 代表在每個
 
-- all batches have the same number of samples
+當你在使用有狀態的 RNN 時，那其實就代表了：
+
+- 所有的 batch 有相同數量的樣本
 - If `x1` and `x2` are successive batches of samples, then `x2[i]` is the follow-up sequence to `x1[i]`, for every `i`.
 
 To use statefulness in RNNs, you need to:
