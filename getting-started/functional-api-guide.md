@@ -1,4 +1,4 @@
-# Getting started with the Keras functional API
+# 開始使用 Keras functional API
 
 The Keras functional API is the way to go for defining complex models, such as multi-output models, directed acyclic graphs, or models with shared layers.
 

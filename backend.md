@@ -1,6 +1,6 @@
-# Keras backends
+# Keras 支援的後端
 
-## What is a "backend"?
+## 什麼是一個 "後端"?
 
 Keras is a model-level library, providing high-level building blocks for developing deep learning models. It does not handle itself low-level operations such as tensor products, convolutions and so on. Instead, it relies on a specialized, well-optimized tensor manipulation library to do so, serving as the "backend engine" of Keras. Rather than picking one single tensor library and making the implementation of Keras tied to that library, Keras handles the problem in a modular way, and several different backend engines can be plugged seamlessly into Keras.
 
